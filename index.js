@@ -23,6 +23,11 @@ const headings = [
 // there should be no need to touch anything down here //
 /////////////////////////////////////////////////////////
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  next();
+});
+
 app.get('*', function(req, res) {
     try {
         tabletojson.convertUrl(
@@ -43,12 +48,10 @@ app.get('*', function(req, res) {
             }
             tmp.shift()
             tmp.shift()
-            res.header("Access-Control-Allow-Origin", "*")
             res.json(tmp)
         }
 
     } catch (err) {
-        res.header("Access-Control-Allow-Origin", "*")
         res.send(err)
     }
 });

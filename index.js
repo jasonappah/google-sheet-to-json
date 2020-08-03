@@ -43,10 +43,12 @@ app.get('*', function(req, res) {
             }
             tmp.shift()
             tmp.shift()
+            res.header("Access-Control-Allow-Origin", "*")
             res.json(tmp)
         }
 
     } catch (err) {
+        res.header("Access-Control-Allow-Origin", "*")
         res.send(err)
     }
 });

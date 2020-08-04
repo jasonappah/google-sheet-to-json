@@ -1,20 +1,20 @@
 {
-  "name": "table-to-json",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "html-table-to-json": "^1.0.0",
-    "node-fetch": "^2.6.0",
-    "tabletojson": "^2.0.4"
-  }
+    "name": "table-to-json",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node api/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "html-table-to-json": "^1.0.0",
+        "node-fetch": "^2.6.0",
+        "tabletojson": "^2.0.4"
+    }
 }

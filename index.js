@@ -1,6 +1,12 @@
 const tabletojson = require('tabletojson').Tabletojson;
 const express = require('express');
 const app = express();
+var cors = require('cors')
+
+////////////////////////////////////////////////////////
+// there should be no need to touch anything up there //
+////////////////////////////////////////////////////////
+
 
 // put a link to your sheet, published as an HTML file
 const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTBlbpaaeSANDkmVYWGsoE--djAZFZtns-eC_SY_2KeK5ZT8vKu5TP48oeks-iGq5_L_PEoqCOczfCC/pubhtml?gid=155390857&single=true"
@@ -23,10 +29,7 @@ const headings = [
 // there should be no need to touch anything down here //
 /////////////////////////////////////////////////////////
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  next();
-});
+app.use(cors())
 
 app.get('*', function(req, res) {
     try {

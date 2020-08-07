@@ -16,7 +16,6 @@ module.exports = (req, res) => {
         'End Time (EST)',
         'Start Time (UTC)',
         'End Time (UTC)',
-        'Type',
         "Owner",
         'Action',
         'Completed',

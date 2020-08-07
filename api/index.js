@@ -18,8 +18,10 @@ module.exports = (req, res) => {
         'End Time (UTC)',
         'Type',
         "Owner",
+        'Action',
+        'Completed',
         'Public',
-        'Action'
+        'Notes'
     ]
 
     /////////////////////////////////////////////////////////

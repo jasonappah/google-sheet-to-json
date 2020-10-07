@@ -1,55 +1,41 @@
-const tabletojson = require('tabletojson').Tabletojson;
-
-////////////////////////////////////////////////////////
-// there should be no need to touch anything up there //
-////////////////////////////////////////////////////////
+const HtmlTableToJson = require("html-table-to-json");
+const fetch = require("node-fetch");
 
 module.exports = (req, res) => {
-    // put a link to your sheet, published as an HTML file
-    const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTBlbpaaeSANDkmVYWGsoE--djAZFZtns-eC_SY_2KeK5ZT8vKu5TP48oeks-iGq5_L_PEoqCOczfCC/pubhtml?gid=155390857&single=true"
+  // put a link to your sheet, published as an HTML file
+  const url =
+    req.query.url ||
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vTBlbpaaeSANDkmVYWGsoE--djAZFZtns-eC_SY_2KeK5ZT8vKu5TP48oeks-iGq5_L_PEoqCOczfCC/pubhtml?gid=155390857&single=true";
 
-    // enter your headings in this array
-    const headings = [
-        'Row No',
-        'Date',
-        'Start Time (EST)',
-        'End Time (EST)',
-        'Start Time (UTC)',
-        'End Time (UTC)',
-        "Owner",
-        'Action',
-        'Completed',
-        'Public',
-        'Notes'
-    ]
+  try {
+    fetch(url)
+      .then(response => response.text())
+      .then(body => next(body));
 
-    /////////////////////////////////////////////////////////
-    // there should be no need to touch anything down here //
-    /////////////////////////////////////////////////////////
+    function next(html) {
+      const jsonTables = HtmlTableToJson.parse(html);
 
-    try {
-        tabletojson.convertUrl(
-            url, { useFirstRowForHeadings: true, headings: headings },
-            function(tablesAsJson) {
-                respond(tablesAsJson);
-            }
-        );
+      var data = jsonTables.results[0];
+      const headings = Object.values(jsonTables.results[0][0]);
 
-        function respond(d) {
-            var tmp = []
-            for (entry in d[0]) {
-                tmp.push({ entry })
-                tmp[entry]['Date'] = d[0][entry]['Date']
-                tmp[entry]['Time'] = d[0][entry]['Start Time (EST)']
-                tmp[entry]['Action'] = d[0][entry]['Action']
-            }
-            tmp.shift()
-            tmp.shift()
-            res.send(JSON.stringify(tmp))
+      data.shift();
+
+      var final = [];
+
+      for (var row in data) {
+        var obj = {};
+        const vals = Object.values(data[row]);
+
+        for (var cell in vals) {
+          obj[headings[cell]] = vals[cell];
         }
-
-    } catch (err) {
-        res.send(err)
+        final.push(obj);
+      }
+      res.send(JSON.stringify(final));
     }
-
-}
+  } catch (e) {
+    const json = { service_error: e };
+    console.error(json);
+    res.send(JSON.stringify(e));
+  }
+};

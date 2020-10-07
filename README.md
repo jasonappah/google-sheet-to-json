@@ -10,7 +10,7 @@ Then, you should get an array of JSON objects, with the headers of your sheet us
 
 Here's how to publish your Google Sheet.
 
-![GIF showing how to publish a Google Sheet as HTML](https://raw.githubusercontent.com/jasonappah/google-sheet-to-json/readme-edits/publish_google_sheet.gif)
+![GIF showing how to publish a Google Sheet as HTML](https://raw.githubusercontent.com/jasonappah/google-sheet-to-json/publish_google_sheet.gif)
 
 ---
 
